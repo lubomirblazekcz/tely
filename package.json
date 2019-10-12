@@ -5,10 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "api": "node app.js"
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.0",
+    "torrent-search-api": "^2.0.10",
     "vue": "^2.6.10"
   },
   "devDependencies": {
