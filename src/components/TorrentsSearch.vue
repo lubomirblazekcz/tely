@@ -2,53 +2,53 @@
   <div class="layout">
     <div class="md-layout md-gutter">
       <div class="md-layout-item md-small-size-50">
-        <md-field>
+        <div>
           <label>Categry</label>
-          <md-select v-model="category" @md-selected="searchTorrents">
-            <md-option value="tv">TV</md-option>
-            <md-option value="movies">Movies</md-option>
-          </md-select>
-        </md-field>
+          <select v-model="category" @change="searchTorrents">
+            <option value="tv">TV</option>
+            <option value="movies">Movies</option>
+          </select>
+        </div>
       </div>
       <div class="md-layout-item md-small-size-50">
-        <md-field>
+        <div>
           <label>Quality</label>
-          <md-select v-model="quality" @md-selected="searchTorrents">
-            <md-option value="2160">2160</md-option>
-            <md-option value="1080">1080</md-option>
-            <md-option value="720">720</md-option>
-          </md-select>
-        </md-field>
+          <select v-model="quality" @change="searchTorrents">
+            <option value="2160">2160</option>
+            <option value="1080">1080</option>
+            <option value="720">720</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="md-layout md-gutter">
       <div class="md-layout-item md-small-size-80">
-        <md-field>
+        <div>
           <label>Search</label>
-          <md-input class="md-accent" v-model="search_text" v-on:change="searchTorrents"></md-input>
-        </md-field>
+          <input class="md-accent" v-model="search_text" v-on:change="searchTorrents" />
+        </div>
       </div>
       <div class="md-layout-item md-small-size-20">
-        <md-field>
-          <md-select v-model="count" @md-selected="searchTorrents">
-            <md-option value="5">5</md-option>
-            <md-option value="10">10</md-option>
-            <md-option value="10">20</md-option>
-          </md-select>
-        </md-field>
+        <div>
+          <select v-model="count" @change="searchTorrents">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
       </div>
     </div>
-    <md-list class="md-double-line" v-if="torrents">
-      <md-list-item v-for="(torrent, id) in torrents ">
+    <div class="md-double-line" v-if="torrents">
+      <div v-for="(torrent, id) in torrents" v-bind:key="torrent.id">
         <div class="md-list-item-text">
           <span>{{ torrent.title }}</span>
           <div><span>{{ torrent.size }}, {{ torrent.time }}</span> <span style="color: #fff;font-size: 12px">{{ torrent.seeds }} / {{ torrent.peers }}</span></div>
         </div>
-        <md-button class="md-icon-button md-list-action" v-on:click="downloadTorrent" v-bind:data-id="id">
-          <md-icon class="md-primary">save_alt</md-icon>
-        </md-button>
-      </md-list-item>
-    </md-list>
+        <button class="md-icon-button md-list-action" v-on:click="downloadTorrent" v-bind:data-id="id">
+          <span class="md-primary">save_alt</span>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,7 +58,7 @@ let self;
 import axios from "axios";
 
 export default {
-  name: 'SearchTorrents',
+  name: 'TorrentsSearch',
   data: () => ({
     torrents: null,
     category: "tv",
@@ -67,7 +67,7 @@ export default {
     search_text: ""
   }),
   methods: {
-    searchTorrents: (event) => {
+    searchTorrents: () => {
       if (self.search_text.length > 0) {
         axios.get(`${self.$root.api}/api/torrents?search=${self.search_text}&quality=${self.quality}&category=${self.category}&count=${self.count}`).then(response => {
           self.torrents = response.data;

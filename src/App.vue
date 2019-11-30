@@ -3,10 +3,11 @@
     <h1>Torrent manager</h1>
     <router-view></router-view>
     <div class="phone-viewport">
-      <md-bottom-bar md-type="shift" md-sync-route>
-        <md-bottom-bar-item to="/" exact md-label="Search" md-icon="search"></md-bottom-bar-item>
-        <md-bottom-bar-item to="/torrents" md-label="Torrents" md-icon="pages"></md-bottom-bar-item>
-      </md-bottom-bar>
+      <div>
+        <router-link to="/">Home</router-link>
+        <router-link to="/torrents-search">Search</router-link>
+        <router-link to="/torrents">Torrents</router-link>
+      </div>
     </div>
   </div>
 </template>

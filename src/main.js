@@ -1,25 +1,19 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
-import { MdLayout, MdButton, MdContent, MdField, MdList, MdDivider, MdMenu, MdBottomBar } from 'vue-material/dist/components'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default-dark.css'
-import SearchTorrents from "./components/SearchTorrents";
-import MyTorrents from "./components/MyTorrents";
+import moment from 'moment';
+import Dashboard from "./components/Dashboard";
+import TorrentsSearch from "./components/TorrentsSearch";
+import Torrents from "./components/Torrents";
 
 Vue.use(VueRouter);
-Vue.use(MdLayout);
-Vue.use(MdButton);
-Vue.use(MdContent);
-Vue.use(MdField);
-Vue.use(MdList);
-Vue.use(MdMenu);
-Vue.use(MdDivider);
-Vue.use(MdBottomBar);
+
+console.log(moment(`2019-12-01 8:00 PM`, "YYYY-MM-DD h:m").add(8, 'h').format("DD. MM. YYYY HH:mm"));
 
 const routes = [
-  { path: '/', component: SearchTorrents },
-  { path: '/torrents', component: MyTorrents }
+  { path: '/', component: Dashboard },
+  { path: '/torrents-search', component: TorrentsSearch },
+  { path: '/torrents', component: Torrents }
 ];
 
 const router = new VueRouter({
