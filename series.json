@@ -1,0 +1,158 @@
+[
+  {
+    "id": 268592,
+    "name": "The 100",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 323168,
+    "name": "13 Reasons Why",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 263365,
+    "name": "Agents of S.H.I.E.L.D.",
+    "status": "continuing",
+    "network": "disney"
+  },
+  {
+    "id": 257655,
+    "name": "Arrow",
+    "status": "continuing",
+    "network": "none"
+  },
+  {
+    "id": 361315,
+    "name": "Batwoman",
+    "status": "continuing",
+    "network": "hbo"
+  },
+  {
+    "id": 338947,
+    "name": "Chilling Adventures of Sabrina",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 305574,
+    "name": "The Crown",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 78804,
+    "name": "Doctor Who",
+    "status": "continuing",
+    "network": "none"
+  },
+  {
+    "id": 280619,
+    "name": "The Expanse",
+    "status": "continuing",
+    "network": "amazon"
+  },
+  {
+    "id": 279121,
+    "name": "The Flash",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 360295,
+    "name": "His Dark Materials",
+    "status": "continuing",
+    "network": "hbo"
+  },
+  {
+    "id": 295760,
+    "name": "Legends of Tomorrow",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 295685,
+    "name": "Lucifer",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 361753,
+    "name": "The Mandalorian",
+    "status": "continuing",
+    "network": "disney"
+  },
+  {
+    "id": 270408,
+    "name": "Outlander",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 311954,
+    "name": "Riverdale",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 328711,
+    "name": "Star Trek: Discovery",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 305288,
+    "name": "Stranger Things",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 295759,
+    "name": "Supergirl",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 78901,
+    "name": "Supernatural",
+    "status": "continuing",
+    "network": "none"
+  },
+  {
+    "id": 341663,
+    "name": "Titans",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 260449,
+    "name": "Vikings",
+    "status": "continuing",
+    "network": "none"
+  },
+  {
+    "id": 360733,
+    "name": "Watchmen",
+    "status": "continuing",
+    "network": "hbo"
+  },
+  {
+    "id": 296762,
+    "name": "Westworld",
+    "status": "continuing",
+    "network": "hbo"
+  },
+  {
+    "id": 192061,
+    "name": "Young Justice",
+    "status": "continuing",
+    "network": "none"
+  },
+  {
+    "id": 362696,
+    "name": "The Witcher",
+    "status": "continuing",
+    "network": "netflix"
+  }
+]
