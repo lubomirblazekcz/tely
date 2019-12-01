@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const TorrentSearchApi = require('torrent-search-api');
 const axios = require('axios');
+const moment = require('moment');
 const app = express();
 const port = 3000;
 const qb_url = "http://192.168.0.24:8090";
@@ -17,7 +18,6 @@ let tvdb = {
 
 (async function(){
   await axios.post(`${tvdb.api}/login`, {
-    apikey: ''
   }).then(function (response) {
     tvdb.token = response.data.token;
   });
@@ -121,8 +121,11 @@ app.get('/api/tvdb/series', (req, res) => {
 
 app.get('/api/tvdb/episodes', (req, res) => {
   (async function(){
-    let upcoming = true;
-    let aired = req.query.aired;
+    let status = "";
+
+    if (typeof req.query.status !== "undefined") {
+      status = req.query.status;
+    }
 
     function sendEpisodes() {
       let episodes = [];
@@ -136,23 +139,26 @@ app.get('/api/tvdb/episodes', (req, res) => {
 
             tvdb.series.forEach(function(series){
               if (series["id"] === episode["seriesId"]) {
+                episode["firstAired"] = moment(`${episode["firstAired"]} + ${series["airsTime"]}`, "YYYY-MM-DD h:m").add(8, 'h').format("YYYY-MM-DD");
+
                 episodes.push(Object.assign(episode, {
                   "seriesName": series["seriesName"],
                   "network": series["network"],
                   "networkLocal": series["networkLocal"],
-                  "airsTime": series["airsTime"]
+                  "airsTime": series["airsTime"],
+                  "airedSeasonEpisode": `s${(episode["airedSeason"].toString()).padStart(2, '0')}e${(episode["airedEpisodeNumber"].toString()).padStart(2, '0')}`
                 }));
               }
             });
           };
 
-          if (typeof upcoming !== "undefined") {
+          if (status === "upcoming") {
             d.setDate(d.getDate()-1);
 
             if (new Date(episode["firstAired"]) > d) {
               pushEpisode();
             }
-          } else if (typeof aired !== "undefined") {
+          } else if (status === "aired") {
             d.setDate(d.getDate()-1);
 
             if (new Date(episode["firstAired"]) < d) {
@@ -164,9 +170,15 @@ app.get('/api/tvdb/episodes', (req, res) => {
         });
       });
 
-      episodes.sort(function(a,b){
-        return new Date(a["firstAired"]) - new Date(b["firstAired"]);
-      });
+      if (status === "aired") {
+        episodes.sort(function(a,b){
+          return new Date(b["firstAired"]) - new Date(a["firstAired"]);
+        });
+      } else {
+        episodes.sort(function(a,b){
+          return new Date(a["firstAired"]) - new Date(b["firstAired"]);
+        });
+      }
 
       res.send(episodes);
     }
@@ -213,15 +225,17 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 // purge tvdb cache and refresh token after 1 day
 setInterval(function(){
-  tvdb.episodes = [];
+  if (tvdb.token.length > 0) {
+    tvdb.episodes = [];
 
-  axios({
-    method: 'get',
-    url: `${tvdb.api}/refresh_token`,
-    headers: {
-      'Authorization': `Bearer ${tvdb.token}`
-    }
-  }).then(response => {
-    tvdb.token = response.data.token;
-  });
+    axios({
+      method: 'get',
+      url: `${tvdb.api}/refresh_token`,
+      headers: {
+        'Authorization': `Bearer ${tvdb.token}`
+      }
+    }).then(response => {
+      tvdb.token = response.data.token;
+    });
+  }
 }, 82800000);
