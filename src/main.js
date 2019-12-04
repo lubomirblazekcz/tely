@@ -21,6 +21,6 @@ new Vue({
   render: h => h(App),
   router,
   data: {
-    api: "http://192.168.0.24:3000"
+    api: "//192.168.0.94:3000"
   }
 }).$mount('#app');

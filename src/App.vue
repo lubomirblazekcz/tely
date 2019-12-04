@@ -17,14 +17,20 @@ export default {
   name: 'app'
 }
 </script>
-
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap&subset=latin-ext');
+</style>
 <style lang="less">
+  body {
+    background-color: #000;
+    color: #fff;
+  }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  padding: 5%;
+  padding: 2% 5%;
   padding-bottom: 5rem;
 }
 
@@ -34,10 +40,15 @@ export default {
     left: 0;
     right: 0;
     z-index: 10;
-    .md-bottom-bar-item {
-      width: 100/12*6% !important;
-      min-width: 100/12*6% !important;
-      max-width: 100/12*6% !important;
+
+    background-color: #000;
+    div {
+      display: flex;
+    }
+    a {
+      width: 100/12*4% !important;
+      color: #fff;
+      padding: 1rem;
     }
   }
 </style>

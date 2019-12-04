@@ -1,11 +1,13 @@
 <template>
   <div class="layout">
     <div class="md-double-line" v-if="episodes">
+      <button @click="toggleAired">aired</button>
+      <button @click="toggleUpcoming">upcoming</button>
       <div v-for="weekday in episodes" v-bind:key="weekday.id">
-        <div>{{weekday.day}}</div>
-        <div v-for="episode in weekday.episodes" v-bind:key="episode.id" v-bind:data-name="`${episode['seriesName']} s${ (episode['airedSeason']).toLocaleString(undefined, {minimumIntegerDigits: 2}) }e${ (episode['airedEpisodeNumber']).toLocaleString(undefined, {minimumIntegerDigits: 2}) }`">
+        <h2>{{weekday.day}}</h2>
+        <div class="elm_item" v-for="episode in weekday.episodes" v-bind:key="episode.id" v-bind:data-name="`${episode['seriesName']} s${ (episode['airedSeason']).toLocaleString(undefined, {minimumIntegerDigits: 2}) }e${ (episode['airedEpisodeNumber']).toLocaleString(undefined, {minimumIntegerDigits: 2}) }`">
           <span>{{ episode["seriesName"] }}, s{{ (episode["airedSeason"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}e{{ (episode["airedEpisodeNumber"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}, {{ episode["firstAiredPlus"] }}, {{ episode["networkLocal"] }}</span>
-          <button @click="downloadTorrent">download</button>
+          <div v-if="isAired(episode['firstAiredPlus'])"><button @click="downloadTorrent">download</button></div><br/>
         </div>
       </div>
     </div>
@@ -22,39 +24,57 @@ export default {
     episodes: []
   }),
   methods: {
+    isAired: (date) => {
+      let d = new Date();
+      d.setDate(d.getDate());
+
+      if (new Date(date) < d) {
+        return true
+      }
+    },
     downloadTorrent: (event) => {
-      self.$router.push({ name: 'torrents-search', params: { torrentName: event.target.closest('div').dataset.name }})
+      self.$router.push({ name: 'torrents-search', params: { torrentName: event.target.closest('.elm_item').dataset.name }})
+    },
+    getEpisodes: (status) => {
+      self.episodes = [];
+      axios.get(`${self.$root.api}/api/tvdb/episodes`, {
+        params: {
+          status: status
+        }
+      }).then(response => {
+        let daysOfWeek = ["Neděle","Pondělí","Úterý","Středa","Čtvrtek","Pátek","Sobota"];
+        let days = [];
+
+        response.data.forEach(function(episode) {
+          daysOfWeek.forEach(function(day,i) {
+            if (new Date(episode["firstAiredPlus"]).getDay() === i) {
+              if (!days.includes(episode["firstAiredPlus"])) {
+                self.episodes.push({
+                  "day": day,
+                  "episodes": [episode]
+                });
+                days.push(episode["firstAiredPlus"]);
+              } else {
+                self.episodes[days.indexOf(episode["firstAiredPlus"])].episodes.push(episode);
+              }
+            }
+          });
+        });
+
+        self.episodes.forEach(function(weekday){
+          weekday.episodes.sort((a, b) => a["airedSeasonEpisode"].localeCompare(b["airedSeasonEpisode"]));
+        });
+      });
+    },
+    toggleUpcoming: () => {
+      self.getEpisodes("upcoming");
+    },
+    toggleAired: () => {
+      self.getEpisodes("aired");
     }
   },
   mounted () {
-    axios.get(`${self.$root.api}/api/tvdb/episodes`, {
-      params: {
-        status: "upcoming"
-      }
-    }).then(response => {
-      let daysOfWeek = ["Neděle","Pondělí","Úterý","Středa","Čtvrtek","Pátek","Sobota"];
-      let days = [];
-
-      response.data.forEach(function(episode) {
-        daysOfWeek.forEach(function(day,i) {
-          if (new Date(episode["firstAiredPlus"]).getDay() === i) {
-            if (!days.includes(episode["firstAiredPlus"])) {
-              self.episodes.push({
-                "day": day,
-                "episodes": [episode]
-              });
-              days.push(episode["firstAiredPlus"]);
-            } else {
-              self.episodes[days.indexOf(episode["firstAiredPlus"])].episodes.push(episode);
-            }
-          }
-        });
-      });
-
-      self.episodes.forEach(function(weekday){
-        weekday.episodes.sort((a, b) => a["airedSeasonEpisode"].localeCompare(b["airedSeasonEpisode"]));
-      });
-    });
+    self.getEpisodes("upcoming");
   },
   created () {
     self = this;
