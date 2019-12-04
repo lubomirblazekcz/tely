@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "dayjs": "^1.8.17",
     "express": "^4.17.1",
     "moment": "^2.24.0",
     "torrent-search-api": "^2.0.10",

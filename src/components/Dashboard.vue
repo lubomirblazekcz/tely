@@ -4,7 +4,7 @@
       <div v-for="weekday in episodes" v-bind:key="weekday.id">
         <div>{{weekday.day}}</div>
         <div v-for="episode in weekday.episodes" v-bind:key="episode.id">
-          <span>{{ episode["seriesName"] }}, s{{ (episode["airedSeason"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}e{{ (episode["airedEpisodeNumber"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}, {{ episode["firstAired"] }}, {{ episode["networkLocal"] }}</span>
+          <span>{{ episode["seriesName"] }}, s{{ (episode["airedSeason"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}e{{ (episode["airedEpisodeNumber"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}, {{ episode["firstAiredPlus"] }}, {{ episode["networkLocal"] }}</span>
         </div>
       </div>
     </div>
@@ -31,16 +31,15 @@ export default {
 
       response.data.forEach(function(episode) {
         daysOfWeek.forEach(function(day,i) {
-          if (new Date(episode["firstAired"]).getDay() === i) {
-            if (!days.includes(episode["firstAired"])) {
+          if (new Date(episode["firstAiredPlus"]).getDay() === i) {
+            if (!days.includes(episode["firstAiredPlus"])) {
               self.episodes.push({
-                "firstAired": episode["firstAired"],
                 "day": day,
                 "episodes": [episode]
               });
-              days.push(episode["firstAired"]);
+              days.push(episode["firstAiredPlus"]);
             } else {
-              self.episodes[days.indexOf(episode["firstAired"])].episodes.push(episode);
+              self.episodes[days.indexOf(episode["firstAiredPlus"])].episodes.push(episode);
             }
           }
         });
