@@ -6,7 +6,7 @@ const axios = require('axios');
 const dayjs = require('dayjs');
 const app = express();
 const port = 3000;
-const qb_url = "http://192.168.0.24:8090";
+const qb_url = "http://192.168.0.94:8090";
 const series = JSON.parse(fs.readFileSync("series.json").toString());
 
 let tvdb = {
