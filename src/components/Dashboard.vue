@@ -3,8 +3,9 @@
     <div class="md-double-line" v-if="episodes">
       <div v-for="weekday in episodes" v-bind:key="weekday.id">
         <div>{{weekday.day}}</div>
-        <div v-for="episode in weekday.episodes" v-bind:key="episode.id">
+        <div v-for="episode in weekday.episodes" v-bind:key="episode.id" v-bind:data-name="`${episode['seriesName']} s${ (episode['airedSeason']).toLocaleString(undefined, {minimumIntegerDigits: 2}) }e${ (episode['airedEpisodeNumber']).toLocaleString(undefined, {minimumIntegerDigits: 2}) }`">
           <span>{{ episode["seriesName"] }}, s{{ (episode["airedSeason"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}e{{ (episode["airedEpisodeNumber"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}, {{ episode["firstAiredPlus"] }}, {{ episode["networkLocal"] }}</span>
+          <button @click="downloadTorrent">download</button>
         </div>
       </div>
     </div>
@@ -20,6 +21,11 @@ export default {
   data: () => ({
     episodes: []
   }),
+  methods: {
+    downloadTorrent: (event) => {
+      self.$router.push({ name: 'torrents-search', params: { torrentName: event.target.closest('div').dataset.name }})
+    }
+  },
   mounted () {
     axios.get(`${self.$root.api}/api/tvdb/episodes`, {
       params: {

@@ -25,7 +25,7 @@
       <div class="md-layout-item md-small-size-80">
         <div>
           <label>Search</label>
-          <input class="md-accent" v-model="search_text" v-on:change="searchTorrents" />
+          <input class="md-accent" v-model.lazy="search_text" v-on:change="searchTorrents" />
         </div>
       </div>
       <div class="md-layout-item md-small-size-20">
@@ -80,6 +80,12 @@ export default {
       axios.post(`${self.$root.api}/api/torrents-add`, {
         url: self.torrents[id].magnet
       });
+    }
+  },
+  mounted() {
+    if (typeof self.$route.params.torrentName !== "undefined") {
+      self.search_text = self.$route.params.torrentName;
+      self.searchTorrents();
     }
   },
   created () {

@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Dashboard },
-  { path: '/torrents-search', component: TorrentsSearch },
+  { path: '/torrents-search', component: TorrentsSearch,  name: 'torrents-search', },
   { path: '/torrents', component: Torrents }
 ];
 
