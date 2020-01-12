@@ -77,7 +77,7 @@ app.get('/api/torrents-info', (req, res) => {
 });
 
 app.get('/api/torrents-downloaded', (req, res) => {
-  axios.post(`${config.plex.url}/library/sections/${config.plex.library}/refresh?force=1&X-Plex-Token=${config.plex.token}`)
+  axios.get(`${config.plex.url}/library/sections/${config.plex.library}/refresh?force=1&X-Plex-Token=${config.plex.token}`);
   res.send("ok");
 });
 
@@ -91,21 +91,21 @@ app.post('/api/torrents-add', (req, res) => {
   res.send("ok");
 });
 
-app.post('/api/torrents-pause', (req, res) => {
+app.get('/api/torrents-pause', (req, res) => {
   axios({
     method: 'post',
     url: `${qb_url}/api/v2/torrents/pause`,
-    data: `all`,
+    data: `hashes=all`,
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   });
   res.send("ok");
 });
 
-app.post('/api/torrents-resume', (req, res) => {
+app.get('/api/torrents-resume', (req, res) => {
   axios({
     method: 'post',
     url: `${qb_url}/api/v2/torrents/resume`,
-    data: `all`,
+    data: `hashes=all`,
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   });
   res.send("ok");

@@ -112,7 +112,7 @@ h1 {
   }
 
   a {
-    padding: 18/16rem;
+    padding: 16/16rem 18/16rem;
     text-align: center;
     color: #fff;
     font-size: 24/16rem;
@@ -128,6 +128,10 @@ h1 {
 
     &, &:before {
       display: block;
+    }
+
+    &:before {
+      transform: scale(1.25);
     }
   }
 }

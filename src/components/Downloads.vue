@@ -49,12 +49,12 @@ export default {
   }),
   methods: {
     torrentsPause: () => {
-      axios.post(`${self.$root.api}/api/torrents-pause`).then(function () {
+      axios.get(`${self.$root.api}/api/torrents-pause`).then(function () {
         self.torrents_paused = true
       });
     },
     torrentsResume: () => {
-      axios.post(`${self.$root.api}/api/torrents-resume`).then(function () {
+      axios.get(`${self.$root.api}/api/torrents-resume`).then(function () {
         self.torrents_paused = false
       });
     },
