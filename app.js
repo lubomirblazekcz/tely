@@ -77,7 +77,16 @@ app.get('/api/torrents-info', (req, res) => {
 });
 
 app.get('/api/torrents-downloaded', (req, res) => {
-  axios.get(`${config.plex.url}/library/sections/${config.plex.library}/refresh?force=1&X-Plex-Token=${config.plex.token}`);
+  let library = config.plex.library;
+
+  if (Array.isArray(library)) {
+    library.forEach(function(library){
+      axios.get(`${config.plex.url}/library/sections/${library}/refresh?force=1&X-Plex-Token=${config.plex.token}`);
+    });
+  } else {
+    axios.get(`${config.plex.url}/library/sections/${library}/refresh?force=1&X-Plex-Token=${config.plex.token}`);
+  }
+  
   res.send("ok");
 });
 
