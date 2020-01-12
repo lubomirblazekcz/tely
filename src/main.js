@@ -1,16 +1,18 @@
+import Config from '../app.config.js';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import Dashboard from "./components/Dashboard";
-import TorrentsSearch from "./components/TorrentsSearch";
-import Torrents from "./components/Torrents";
+import Search from "./components/Search";
+import Downloads from "./components/Downloads";
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Dashboard },
-  { path: '/torrents-search', component: TorrentsSearch,  name: 'torrents-search', },
-  { path: '/torrents', component: Torrents }
+  { path: '/', redirect: '/dashboard'},
+  { path: '/dashboard', component: Dashboard },
+  { path: '/search', component: Search,  name: 'search' },
+  { path: '/downloads', component: Downloads,  name: 'downloads' }
 ];
 
 const router = new VueRouter({
@@ -21,6 +23,6 @@ new Vue({
   render: h => h(App),
   router,
   data: {
-    api: "//192.168.0.94:3000"
+    api: Config.url
   }
 }).$mount('#app');

@@ -1,12 +1,19 @@
 <template>
   <div id="app">
-    <h1>Torrent manager</h1>
-    <router-view></router-view>
-    <div class="phone-viewport">
-      <div>
-        <router-link to="/">Home</router-link>
-        <router-link to="/torrents-search">Search</router-link>
-        <router-link to="/torrents">Torrents</router-link>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <div id="layout_nav">
+      <div class="wrp_nav_body row--flex">
+        <div class="col">
+          <router-link to="/dashboard" class="icon icon--home" active-class="state--active"></router-link>
+        </div>
+        <div class="col">
+          <router-link to="/search" class="icon icon--search" active-class="state--active"></router-link>
+        </div>
+        <div class="col">
+          <router-link to="/downloads" class="icon icon--list" active-class="state--active"></router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -17,38 +24,104 @@ export default {
   name: 'app'
 }
 </script>
-<style>
-  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap&subset=latin-ext');
-</style>
 <style lang="less">
-  body {
-    background-color: #000;
-    color: #fff;
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+h1 {
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.part_ui_icon {
+  display: block;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+  border: 0;
+  padding: 0;
+
+  &.state--active {
+    .icon {
+      opacity: 1;
+    }
   }
+
+  input {
+    opacity: 0;
+    z-index: -1;
+    position: absolute;
+    padding: 0;
+    margin: 2px;
+
+    &:checked {
+      + .icon {
+        opacity: 1;
+      }
+    }
+  }
+
+  .icon {
+    opacity: 0.6;
+    font-size: 24/16rem;
+    &, &:before {
+      display: block;
+    }
+  }
+}
+
 #app {
   font-family: 'Poppins', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  padding: 2% 5%;
-  padding-bottom: 5rem;
-}
+  padding: 5% 5% 60/16rem;
 
-  .phone-viewport {
+
+  #layout_nav {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 10;
-
     background-color: #000;
-    div {
+    overflow: hidden;
+
+    .wrp_nav_body {
       display: flex;
+      flex-direction: row;
+      padding: 0 14/16rem;
+      justify-content: space-between;
+      > .col {
+        flex-grow: 1;
+      }
     }
+
     a {
-      width: 100/12*4% !important;
+      padding: 18/16rem;
+      text-align: center;
       color: #fff;
-      padding: 1rem;
+      font-size: 24/16rem;
+      text-decoration: none;
+
+      &.state--active {
+        color: #2acd72;
+      }
+
+      &:not(.state--active) {
+        opacity: 0.7;
+      }
+
+      &, &:before {
+        display: block;
+      }
     }
   }
+
+}
 </style>

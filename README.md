@@ -1,4 +1,4 @@
-# app-torrent-manager
+# Tely
 
 ## Project setup
 ```

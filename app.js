@@ -1,3 +1,4 @@
+const config = require('/app.config.js');
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -5,8 +6,8 @@ const TorrentSearchApi = require('torrent-search-api');
 const axios = require('axios');
 const dayjs = require('dayjs');
 const app = express();
-const port = 3000;
-const qb_url = "http://192.168.0.94:8090";
+const port = config.port;
+const qb_url = config.qb.url;
 const series = JSON.parse(fs.readFileSync("series.json").toString());
 
 let tvdb = {
@@ -18,12 +19,13 @@ let tvdb = {
 
 (async function(){
   await axios.post(`${tvdb.api}/login`, {
+    apikey: config.tvdb.apikey
   }).then(function (response) {
     tvdb.token = response.data.token;
   });
 })();
 
-TorrentSearchApi.enableProvider('1337x');
+TorrentSearchApi.enableProvider(config.torrent.provider);
 
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
@@ -74,11 +76,36 @@ app.get('/api/torrents-info', (req, res) => {
   });
 });
 
+app.get('/api/torrents-downloaded', (req, res) => {
+  axios.post(`${config.plex.url}/library/sections/${config.plex.library}/refresh?force=1&X-Plex-Token=${config.plex.token}`)
+  res.send("ok");
+});
+
 app.post('/api/torrents-add', (req, res) => {
   axios({
     method: 'post',
     url: `${qb_url}/api/v2/torrents/add`,
     data: `urls=${req.body.url}`,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  });
+  res.send("ok");
+});
+
+app.post('/api/torrents-pause', (req, res) => {
+  axios({
+    method: 'post',
+    url: `${qb_url}/api/v2/torrents/pause`,
+    data: `all`,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  });
+  res.send("ok");
+});
+
+app.post('/api/torrents-resume', (req, res) => {
+  axios({
+    method: 'post',
+    url: `${qb_url}/api/v2/torrents/resume`,
+    data: `all`,
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   });
   res.send("ok");
@@ -144,7 +171,7 @@ app.get('/api/tvdb/episodes', (req, res) => {
                   "network": series["network"],
                   "networkLocal": series["networkLocal"],
                   "airsTime": series["airsTime"],
-                  "firstAiredPlus": dayjs(new Date((`${episode["firstAired"]} ${series["airsTime"]}`).replace(/-/g,"/"))).add(8, 'h').format("YYYY-MM-DD"),
+                  "firstAiredPlus": dayjs(new Date((`${episode["firstAired"]} ${series["airsTime"]}`).replace(/-/g,"/"))).add(config.tvdb.offset, 'h').format("YYYY-MM-DD"),
                   "airedSeasonEpisode": `s${(episode["airedSeason"].toString()).padStart(2, '0')}e${(episode["airedEpisodeNumber"].toString()).padStart(2, '0')}`
                 }));
               }
@@ -221,7 +248,7 @@ app.get('/api/tvdb/episodes', (req, res) => {
   })();
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Tely app listening on port ${port}!`));
 
 // purge tvdb cache and refresh token after 1 day
 setInterval(function(){
