@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="comp">
     <div class="wrp_comp_head">
       <h1>Dashboard</h1>
       <div class="elm_comp_type row">

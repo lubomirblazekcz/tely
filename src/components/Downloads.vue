@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="comp">
     <div class="wrp_comp_head row">
       <div class="col">
         <h1>Downloads</h1>
