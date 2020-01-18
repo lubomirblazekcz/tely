@@ -1,5 +1,5 @@
 module.exports = {
-    url: "//192.168.0.94:3000",
+    url: "http://192.168.0.94:3000",
     port: 3000,
     qb: {
         url: "http://192.168.0.94:8090"
@@ -14,6 +14,6 @@ module.exports = {
     plex: {
         token: "",
         url: "http://192.168.0.220:32400",
-        library: 2,
+        library: [1,2],
     }
 };

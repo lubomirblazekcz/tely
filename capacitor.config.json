@@ -1,0 +1,14 @@
+{
+  "appId": "eu.evromalarkey.tely",
+  "appName": "Tely",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "cordova": {},
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 300
+    }
+  }
+}
+

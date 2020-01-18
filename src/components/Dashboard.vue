@@ -82,6 +82,18 @@ export default {
         self.episodes.forEach(function(weekday){
           weekday.episodes.sort((a, b) => a["airedSeasonEpisode"].localeCompare(b["airedSeasonEpisode"]));
         });
+
+        if (status === "upcoming") {
+          localStorage.setItem("episodes_upcoming", JSON.stringify(self.episodes));
+        } else {
+          localStorage.setItem("episodes_aired", JSON.stringify(self.episodes));
+        }
+      }).catch(function () {
+        if (status === "upcoming" && localStorage.getItem("episodes_upcoming")) {
+          self.episodes = JSON.parse(localStorage.getItem("episodes_upcoming"));
+        } else if (localStorage.getItem("episodes_aired")) {
+          self.episodes = JSON.parse(localStorage.getItem("episodes_aired"));
+        }
       });
     },
     toggleUpcoming: () => {
