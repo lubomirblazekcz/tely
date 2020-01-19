@@ -59,7 +59,7 @@ In qbittorrent you have to set up post request (`curl http://192.168.0.94:3000/a
 npm run api
 ```
 
-You can run the app inside browser or you can also bundle it into native android / ios app via [Capacitor.js](https://capacitor.ionicframework.com/)
+You can run the app inside browser or you can also bundle it into native android / ios app via [Capacitor.js](https://capacitor.ionicframework.com/)<br/>
 To run the app outside your local network you have to open your local ports.
 
 <img src="./public/dashboard_preview.png" alt="Screenshot" width=260px>
