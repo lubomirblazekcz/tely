@@ -5,6 +5,9 @@ import App from './App.vue';
 import Dashboard from "./components/Dashboard";
 import Search from "./components/Search";
 import Downloads from "./components/Downloads";
+import {Plugins} from '@capacitor/core';
+
+const {SplashScreen} = Plugins;
 
 Vue.use(VueRouter);
 
@@ -24,5 +27,8 @@ new Vue({
   router,
   data: {
     api: Config.url
+  },
+  created: () => {
+    SplashScreen.hide();
   }
 }).$mount('#app');

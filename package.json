@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "api": "node app.js"
+    "api": "node app.js",
+    "studio": "npx cap open android",
+    "sync": "npx cap sync"
   },
   "dependencies": {
     "@capacitor/android": "^1.4.0",

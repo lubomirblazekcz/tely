@@ -64,7 +64,7 @@ app.get('/api/torrents', (req, res) => {
       });
     };
 
-    start().then(function(e){
+    start().then(function(){
       res.send(response);
     });
   })();

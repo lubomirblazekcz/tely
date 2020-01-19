@@ -154,5 +154,17 @@
     "name": "The Witcher",
     "status": "continuing",
     "network": "netflix"
+  },
+  {
+    "id": 361160,
+    "name": "Dracula",
+    "status": "continuing",
+    "network": "netflix"
+  },
+  {
+    "id": 298566,
+    "name": "The Last Kingdom",
+    "status": "continuing",
+    "network": "netflix"
   }
 ]
