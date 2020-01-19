@@ -60,7 +60,7 @@ export default {
           status: status
         }
       }).then(response => {
-        let daysOfWeek = ["Neděle","Pondělí","Úterý","Středa","Čtvrtek","Pátek","Sobota"];
+        let daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         let days = [];
 
         response.data.forEach(function(episode) {
