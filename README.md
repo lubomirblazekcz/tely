@@ -2,7 +2,7 @@
 
 # <img src="./public/favicons/favicon-32x32.png" alt="Logo"> Tely
 This app is small personal project written in Vue.js and Express.js and it's basically a very simplified alternative to Sonar.<br/>
-Keep track of your favorites TV shows in one place from your phone. Uses mix of TVDB, qBittorrent and Plex API's in one web app.<br/>
+Keep track of your favorites TV shows in one place from your phone. Uses mix of TVDB, qBittorrent and Plex API's.<br/>
 What the app does? Shows you upcoming and aired episodes in one location. You can find releases and send it to qBittorrent client. You can also sync it with Plex.
 
 ### What you need
