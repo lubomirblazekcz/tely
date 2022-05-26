@@ -13,23 +13,23 @@ What the app does? Shows you upcoming and aired episodes in one location. You ca
 * plex server
 
 ### Setup
-```
+```sh
 npm intall
 npm run build
 ```
 
 ## Add all your favorites tv shows to series.json
-```
+```json
 {
     "id": 268592, // tvdb id
     "name": "The 100", // name
     "status": "continuing",
-    "network": "netflix" // if it runs on streaming service you watch - netflix, amazon, hbogo
+    "network": "netflix" // if it available on streaming service you have - netflix, amazon, hbomax, disney
 }
 ```
 
-### Config app.config.json
-```
+### Config app.config.js
+```js
 {
     url: "http://192.168.0.94:3000", // local ip of your host
     port: 3000,
