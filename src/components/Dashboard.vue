@@ -20,6 +20,7 @@
             <span class="icon icon--netflix" v-if=" episode['networkLocal'] === 'netflix' "></span>
             <span class="icon icon--hbo" v-if=" episode['networkLocal'] === 'hbo' "></span>
             <span class="icon icon--amazon" v-if=" episode['networkLocal'] === 'amazon' "></span>
+            <span class="icon icon--disney" v-if=" episode['networkLocal'] === 'disney' "></span>
           </div>
           <div class="elm_item_info">
             s{{ (episode["airedSeason"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }}e{{ (episode["airedEpisodeNumber"]).toLocaleString(undefined, {minimumIntegerDigits: 2}) }},
